@@ -1,4 +1,4 @@
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from .models import TipoSensor, Controlador, Sensor, Regra, Leitura, Cadastro
@@ -200,3 +200,11 @@ class LeituraDelete(DeleteView):
         'botao': 'Excluir'
             }
         
+
+######################################################
+
+class TipoSensorView(ListView):
+     model = TipoSensor
+     template_name = 'paginasweb/tiposensor.html'
+
+

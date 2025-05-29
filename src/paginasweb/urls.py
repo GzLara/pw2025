@@ -5,6 +5,7 @@ from .views import *
 
 
 urlpatterns = [
+
     path('', IndexView.as_view(), name='index'),  # Página inicial
     path('sobre/', SobreView.as_view(), name='sobre'),  # Página sobre
     path('tiposensor/', TipoSensorView.as_view(), name='tiposensor'), #Página tipo de sensor
@@ -31,5 +32,7 @@ urlpatterns = [
     path('excluir/regra/<int:pk>/', RegraDelete.as_view(), name='excluir-regra'),
     path('excluir/leitura/<int:pk>/', LeituraDelete.as_view(), name='excluir-leitura'),
     path('cadastrar/cadastro/<int:pk>/', CadastroDelete.as_view(), name='excluir-cadastro'),
+
+    path("listar/tiposensor/", TipoSensorView.as_view(), name="listar-tiposensor"),
 
 ]
