@@ -1,0 +1,49 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {% block titulo %}
+    <title>Programação Web 2025</title>
+    {% endblock titulo %}
+
+
+    <link rel="stylesheet" href="{% static 'css/estilo.css' %}">
+    
+</head>
+<body>
+
+
+<ul id="menu">
+    <li><a href="{% url "index" %}">Início</a></li>
+    <li><a href="{% url "sobre" %}">Sobre nós</a></li>
+    
+    <li><a href="{% url "listar-cadastro" %}">Cadastro de cliente</a></li>
+    <li><a href="{% url "listar-tipo-sensor" %}">Tipo de Sensor</a></li>
+    <li><a href="{% url "listar-controlador" %}">Controlador</a></li>
+    <li><a href="{% url "listar-sensor" %}">Sensor</a></li>
+    <li><a href="{% url "listar-regra" %}">Regra</a></li>
+    <li><a href="{% url "listar-leitura" %}">Leitura</a></li>
+    
+
+</ul>
+
+{% block conteudo %}
+
+    <h3>Olá galera de Programação Web!!</h3>
+
+    <p>
+        HTML é muito legal!!!!
+    </p>
+
+    {% endblock %}
+
+    <div id="rodape">
+        Desenvolvido por Lara Gazola e Thiago Nicolletti
+    </div>
+
+</body>
+</html>
