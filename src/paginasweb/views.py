@@ -23,13 +23,25 @@ class CadastroView(TemplateView):
 class ControladorView(TemplateView):
      template_name = 'paginasweb/cadastrar/form.html'
 
+#Página "Sensor"
+class SensorView(TemplateView):
+     template_name = 'paginasweb/cadastrar/form.html' 
+
+#Página "Regra"
+class RegraView(TemplateView):
+     template_name = 'paginasweb/cadastrar/form.html'
+
+#Página "Leitura"
+class LeituraView(TemplateView):
+     template_name = 'paginasweb/cadastrar/form.html' 
+
 # Views de cadastro (CreateView)
 
 class CadastroCreate(CreateView):
      model = Cadastro
      fields = ['nome', 'email', 'senha']
      template_name = 'paginasweb/form.html'
-     success_url = reverse_lazy('index')
+     success_url = reverse_lazy('listar-cadastro')
      extra_context = {
           'titulo': 'Cadastro de cliente',
           'botao': 'Cadastrar'
@@ -39,7 +51,7 @@ class TipoSensorCreate(CreateView):
     model = TipoSensor
     fields = ['numero_serial', 'descricao']
     template_name = 'paginasweb/form.html'
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('listar-tipo-sensor')
     extra_context = {
         'titulo': 'Cadastro de tipo de sensor',
         'botao': 'Cadastrar'
@@ -49,7 +61,7 @@ class ControladorCreate(CreateView):
     model = Controlador
     fields = ['cadastro_cliente', 'nome', 'descricao']
     template_name = 'paginasweb/form.html'
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('listar-controlador')
     extra_context = {
         'titulo': 'Cadastro de controlador',
         'botao': 'Cadastrar'
@@ -59,7 +71,7 @@ class SensorCreate(CreateView):
     model = Sensor
     fields = ['descricao', 'controlador', 'tipo_sensor']
     template_name = 'paginasweb/form.html'
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('listar-sensor')
     extra_context = {
         'titulo': 'Cadastro de sensor',
         'botao': 'Cadastrar'
@@ -70,7 +82,7 @@ class RegraCreate(CreateView):
     model = Regra
     fields = ['descricao', 'horario_inicio', 'horario_fim', 'valor_minimo', 'valor_maximo', 'tipo_sensor']
     template_name = 'paginasweb/form.html'
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('listar-regra')
     extra_context = {
         'titulo': 'Cadastro regra',
         'botao': 'Cadastrar'
@@ -80,7 +92,7 @@ class LeituraCreate(CreateView):
     model = Leitura
     fields = ['tipo_sensor', 'valor', 'data', 'sensor', 'alerta']
     template_name = 'paginasweb/form.html'
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('listar-leitura')
     extra_context = {
     'titulo': 'Cadastro de leitura',
     'botao': 'Cadastrar'
@@ -208,3 +220,22 @@ class TipoSensorView(ListView):
      template_name = 'paginasweb/tiposensor.html'
 
 
+class CadastroView(ListView):
+     model = Cadastro
+     template_name = 'paginasweb/cadastro.html'
+
+class ControladorView(ListView):
+     model = Controlador
+     template_name = 'paginasweb/controlador.html'
+
+class SensorView(ListView):
+     model = Sensor
+     template_name = 'paginasweb/sensor.html'
+
+class RegraView(ListView):
+     model = Regra
+     template_name = 'paginasweb/regra.html'
+
+class LeituraView(ListView):
+     model = Leitura
+     template_name = 'paginasweb/leitura.html'

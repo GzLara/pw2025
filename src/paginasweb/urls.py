@@ -33,6 +33,13 @@ urlpatterns = [
     path('excluir/leitura/<int:pk>/', LeituraDelete.as_view(), name='excluir-leitura'),
     path('cadastrar/cadastro/<int:pk>/', CadastroDelete.as_view(), name='excluir-cadastro'),
 
-    path("listar/tiposensor/", TipoSensorView.as_view(), name="listar-tiposensor"),
+    path("listar/tiposensor/", TipoSensorView.as_view(), name="listar-tipo-sensor"),
+    path("listar/controlador/", ControladorView.as_view(), name="listar-controlador"),
+    path("listar/sensor/", SensorView.as_view(), name="listar-sensor"),
+    path("listar/regra/", RegraView.as_view(), name="listar-regra"),
+    path("listar/leitura/", LeituraView.as_view(), name="listar-leitura"),
+    path("listar/cadastro/", CadastroView.as_view(), name="listar-cadastro"),
+    
+
 
 ]

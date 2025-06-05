@@ -3,20 +3,24 @@
 {% load static %}
 
 {% block conteudo %}
-<h3>Lista de tipos de sensores cadastrados</h3>
+<h3>Lista de cadastros de clientes</h3>
 
 <table border="1">
 
     <tr>
-        <th>Número Serial</th>
-        <th>Descrição</th>
+        <th>Nome</th>
+        <th>Email</th>
+        <th>Senha</th>
+        <th>Cadastrado em</th>
         <th>Opções</th>
     </tr>
 
     {% for obj in object_list %}
     <tr>
-        <td>{{ obj.numero_serial }}</td>
-        <td>{{ obj.descricao }}</td>
+        <td>{{ obj.nome }}</td>
+        <td>{{ obj.email }}</td>
+        <td>{{ obj.senha }}</td>
+        <td>{{ obj.cadastrado_em }}</td>
         <td>
             <a href="#">Editar</a>
             <a href="#">Excluir</a>
