@@ -2,6 +2,54 @@ from django.views.generic import TemplateView, ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from .models import TipoSensor, Controlador, Sensor, Regra, Leitura, Cadastro
+from django.views import View
+from django.http import JsonResponse, HttpResponseBadRequest, HttpResponseForbidden
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.dateparse import parse_date, parse_time
+from django.utils.timezone import make_aware
+from datetime import datetime
+from decimal import Decimal, InvalidOperation
+
+API_SECRET_KEY = "Projeto1MC"
+
+@method_decorator(csrf_exempt, name='dispatch')  # Desativa CSRF para chamadas externas
+class LeituraCreateView(View):
+    def post(self, request):
+        # Verifica chave de API no header
+        auth_header = request.headers.get("X-API-KEY")
+        if auth_header != API_SECRET_KEY:
+            return HttpResponseForbidden("Chave de API inválida")
+
+        try:
+            data_str = request.POST.get("data")
+            hora_str = request.POST.get("hora")
+            temperatura_str = request.POST.get("temperatura")
+
+            if not all([data_str, hora_str, temperatura_str]):
+                return HttpResponseBadRequest("Campos obrigatórios: data, hora, temperatura")
+
+            data_parsed = parse_date(data_str)
+            hora_parsed = parse_time(hora_str)
+            if not data_parsed or not hora_parsed:
+                return HttpResponseBadRequest("Data ou hora inválida")
+
+            datahora = datetime.combine(data_parsed, hora_parsed)
+            datahora_aware = make_aware(datahora)
+
+            try:
+                temperatura = Decimal(temperatura_str)
+            except InvalidOperation:
+                return HttpResponseBadRequest("Temperatura inválida")
+
+            leitura = Leitura.objects.create(data=datahora_aware, temperatura=temperatura)
+
+            return JsonResponse({"status": "sucesso", "id": leitura.id})
+
+        except Exception as e:
+            return HttpResponseBadRequest(f"Erro inesperado: {str(e)}")
+
+
 
 # Página inicial
 class IndexView(TemplateView):

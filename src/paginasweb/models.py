@@ -63,6 +63,7 @@ class Leitura(models.Model):
     tipo_sensor = models.ForeignKey(TipoSensor, on_delete=models.PROTECT)
     valor = models.FloatField()
     data = models.DateTimeField()
+    temperatura = models.DecimalField(max_digits=5, decimal_places=2)
     sensor = models.ForeignKey(Sensor, on_delete=models.PROTECT)
     alerta = models.ForeignKey(
         Regra, on_delete=models.SET_NULL, null=True, blank=True

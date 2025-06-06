@@ -1,7 +1,10 @@
 from django.urls import path
 from .views import *
+from .views import LeituraCreateView
 
 urlpatterns = [
+    #parte tcc
+	path("api/leitura/", LeituraCreateView.as_view(), name="leitura-create"),
 
     path('', IndexView.as_view(), name='index'),  # Página inicial
     path('sobre/', SobreView.as_view(), name='sobre'),  # Página sobre
