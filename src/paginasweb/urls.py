@@ -2,6 +2,9 @@ from django.urls import path
 from .views import *
 from .views import LeituraCreateView
 
+from .views import *
+
+
 urlpatterns = [
     #parte tcc
 	path("api/leitura/", LeituraCreateView.as_view(), name="leitura-create"),
@@ -11,10 +14,6 @@ urlpatterns = [
     path('tiposensor/', TipoSensorView.as_view(), name='tiposensor'), #Página tipo de sensor
     path('cadastro/', CadastroView.as_view(), name='cadastro'), # Pagina de cadastro de clientes
     path('controlador/', ControladorView.as_view(), name='controlador'), # Pagina de cadastro de controlador
-    path('sensor/', SensorView.as_view(), name='sensor'), # Pagina de cadastro de sensor
-    path('leitura/', LeituraView.as_view(), name='leitura'), # Pagina de cadastro de leitura
-    path('regra/', RegraView.as_view(), name='regra'), # Pagina de cadastro de regras
-
 
     path('cadastrar/tiposensor/', TipoSensorCreate.as_view(), name='cadastrar-tipo-sensor'),
     path('cadastrar/controlador/', ControladorCreate.as_view(), name='cadastrar-controlador'),
@@ -35,7 +34,7 @@ urlpatterns = [
     path('excluir/sensor/<int:pk>/', SensorDelete.as_view(), name='excluir-sensor'),
     path('excluir/regra/<int:pk>/', RegraDelete.as_view(), name='excluir-regra'),
     path('excluir/leitura/<int:pk>/', LeituraDelete.as_view(), name='excluir-leitura'),
-    path('excluir/cadastro/<int:pk>/', CadastroDelete.as_view(), name='excluir-cadastro'),
+    path('cadastrar/cadastro/<int:pk>/', CadastroDelete.as_view(), name='excluir-cadastro'),
 
     path("listar/tiposensor/", TipoSensorView.as_view(), name="listar-tipo-sensor"),
     path("listar/controlador/", ControladorView.as_view(), name="listar-controlador"),
