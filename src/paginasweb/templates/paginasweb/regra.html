@@ -26,8 +26,8 @@
         <td>{{ obj.valor_maximo }}</td>
         <td>{{ obj.tipo_sensor }}</td>
         <td>
-            <a href="#">Editar</a>
-            <a href="#">Excluir</a>
+            <a href="{% url "editar-regra" obj.pk %}">Editar</a>
+            <a href="{% url "excluir-regra" obj.pk %}">Excluir</a>
         </td>
     </tr>
     {% empty %}
