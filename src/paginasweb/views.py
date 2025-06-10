@@ -11,9 +11,18 @@ from django.utils.timezone import make_aware
 from datetime import datetime
 from decimal import Decimal, InvalidOperation
 
+from django.http import JsonResponse, HttpResponseBadRequest, HttpResponseForbidden
+from django.utils.dateparse import parse_date, parse_time
+from django.utils.timezone import make_aware
+from django.views import View
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt
+from decimal import Decimal, InvalidOperation
+from datetime import datetime
+
 API_SECRET_KEY = "Projeto1MC"
 
-@method_decorator(csrf_exempt, name='dispatch')  # Desativa CSRF para chamadas externas
+@method_decorator(csrf_exempt, name='dispatch')
 class LeituraCreateView(View):
     def post(self, request):
         # Verifica chave de API no header
@@ -24,10 +33,11 @@ class LeituraCreateView(View):
         try:
             data_str = request.POST.get("data")
             hora_str = request.POST.get("hora")
-            temperatura_str = request.POST.get("temperatura")
+            sensor_str = request.POST.get("sensor")
+            valor_str = request.POST.get("valor")
 
-            if not all([data_str, hora_str, temperatura_str]):
-                return HttpResponseBadRequest("Campos obrigatórios: data, hora, temperatura")
+            if not all([data_str, hora_str, sensor_str, valor_str]):
+                return HttpResponseBadRequest("Campos obrigatórios: data, hora, sensor, valor")
 
             data_parsed = parse_date(data_str)
             hora_parsed = parse_time(hora_str)
@@ -38,16 +48,22 @@ class LeituraCreateView(View):
             datahora_aware = make_aware(datahora)
 
             try:
-                temperatura = Decimal(temperatura_str)
+                valor = Decimal(valor_str)
             except InvalidOperation:
-                return HttpResponseBadRequest("Temperatura inválida")
+                return HttpResponseBadRequest("Valor inválido")
 
-            leitura = Leitura.objects.create(data=datahora_aware, temperatura=temperatura)
+            # Certifique-se de que seu modelo Leitura tenha os campos: sensor (CharField) e valor (DecimalField)
+            leitura = Leitura.objects.create(
+                data=datahora_aware,
+                sensor=sensor_str,
+                valor=valor
+            )
 
             return JsonResponse({"status": "sucesso", "id": leitura.id})
 
         except Exception as e:
             return HttpResponseBadRequest(f"Erro inesperado: {str(e)}")
+        
 
 
 
